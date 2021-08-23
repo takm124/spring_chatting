@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,7 +18,7 @@ import java.util.UUID;
 public class ChatService {
 
     private final ObjectMapper objectMapper;
-    private Map<String, ChatRoom> chatRooms;
+    private static Map<String, ChatRoom> chatRooms = new HashMap<>();
 
     public List<ChatRoom> findAllRoom() {
         return new ArrayList<>(chatRooms.values());
@@ -36,6 +34,7 @@ public class ChatService {
                 .roomId(randomId)
                 .name(name)
                 .build();
+
         chatRooms.put(randomId, chatRoom);
         return chatRoom;
     }

@@ -13,7 +13,7 @@ public class ChatRoom {
 
     private String roomId;
     private String name;
-    private Set<WebSocketSession> sessions = new HashSet<>();
+    private final Set<WebSocketSession> sessions = new HashSet<>();
 
     @Builder
     public ChatRoom(String roomId, String name) {
@@ -22,7 +22,7 @@ public class ChatRoom {
     }
 
     public void handleActions(WebSocketSession session, ChatMessage chatMessage, ChatService chatService) {
-        if (chatMessage.getType() == ChatMessage.MessageType.Enter) {
+        if (chatMessage.getType() == ChatMessage.MessageType.ENTER) {
             sessions.add(session);
             chatMessage.setMessage(chatMessage.getSender() + " 님이 입장하였습니다.");
         }
